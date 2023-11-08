@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+    volumes:
+      - ./data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: ''
+    ports:
+      - "8082:80" # tady nastavis port
+    depends_on:
+      - db
